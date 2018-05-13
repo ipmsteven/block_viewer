@@ -7,7 +7,8 @@ defmodule BlockViewer.MixProject do
       version: "0.1.0",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      escript: escript_config()
     ]
   end
 
@@ -16,6 +17,10 @@ defmodule BlockViewer.MixProject do
     [
       extra_applications: [:logger]
     ]
+  end
+
+  defp escript_config do
+    [main_module: BlockViewer]
   end
 
   # Run "mix help deps" to learn about dependencies.

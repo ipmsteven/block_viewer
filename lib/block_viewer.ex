@@ -2,17 +2,14 @@ defmodule BlockViewer do
   @moduledoc """
   Documentation for BlockViewer.
   """
+  def main([]) do
+    IO.puts("Please provide a hash you want query")
+  end
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Blockviewer.hello
-      :world
-
-  """
-  def hello do
-    :world
+  def main(args) do
+    args
+    |> List.first
+    |> IO.puts
   end
 end
+
