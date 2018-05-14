@@ -3,7 +3,6 @@ defmodule BlockViewer.Formatter.TxnFormatter do
 
   alias BlockViewer.Formatter.TxnInputFormatter
   alias BlockViewer.Formatter.TxnOutputFormatter
-  alias BlockViewer.Formatter.BinaryFormatter
 
   def format(%Txn{version: version, inputs: inputs, outputs: outputs, lock_time: lock_time}) do
     ~s"""
