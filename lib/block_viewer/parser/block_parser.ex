@@ -15,10 +15,6 @@ defmodule BlockViewer.Parser.BlockParser do
 
     [txn_count, txns_payload] = varialbe_size_payload_parser.parse_stream(rest)
 
-    {:ok, file} = File.open "hello", [:write]
-    IO.binwrite file, txns_payload
-    File.close file
-
     %Block{version: version,
       previous_block: previous_block,
       merkle_root: merkle_root,
