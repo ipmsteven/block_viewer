@@ -5,11 +5,13 @@ defmodule BlockViewer.Parser.TxnsParser do
   alias BlockViewer.Parser.TxnOutputParser
   alias BlockViewer.Parser.VariableSizePayloadParser
 
+  def parse(payload, txns \\ [])
+
   def parse(<<>>, txns) do
     txns
   end
 
-  def parse(payload, txns \\ []) do
+  def parse(payload, txns) do
     <<version :: little-integer-size(32), payload :: binary>> = payload
 
     [number_of_txn_input, payload] = VariableSizePayloadParser.parse_stream(payload)
