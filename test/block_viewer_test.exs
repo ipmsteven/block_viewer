@@ -3,6 +3,5 @@ defmodule BlockViewerTest do
   doctest BlockViewer
 
   test "greets the world" do
-    assert BlockViewer.hello() == :world
   end
 end
