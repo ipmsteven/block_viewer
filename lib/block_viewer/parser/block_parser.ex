@@ -10,9 +10,10 @@ defmodule BlockViewer.Parser.BlockParser do
               timestamp      :: unsigned-little-integer-size(32),
               bits           :: unsigned-little-integer-size(32),
               nonce          :: unsigned-little-integer-size(32),
-              rest           :: binary >>) do
+              rest           :: binary >>, size) do
 
     [txn_count, txns_payload] = VariableSizePayloadParser.parse_stream(rest)
+    fetch_size                = max(1, min(txn_count, size))
 
     {:ok, %Block{version: version,
       previous_block: previous_block,
@@ -21,7 +22,7 @@ defmodule BlockViewer.Parser.BlockParser do
       bits: bits,
       nonce: nonce,
       txn_count: txn_count,
-      txns: TxnsParser.parse(txns_payload)}
+      txns: TxnsParser.parse(txns_payload, fetch_size)}
     }
   end
 

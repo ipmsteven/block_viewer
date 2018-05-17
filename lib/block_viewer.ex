@@ -1,5 +1,4 @@
 defmodule BlockViewer do
-  alias BlockViewer.Model.Block
   alias BlockViewer.Parser.BlockParser
   alias BlockViewer.CLI.ArgsParser
   alias BlockViewer.Requester.BlockHttpRequester
@@ -8,8 +7,7 @@ defmodule BlockViewer do
   def main(args) do
     with {:ok, data} <- parse_args(args),
 	 {:ok, data} <- get_raw_block_info(data),
-	 {:ok, data} <- parse_raw_block_info(data),
-	 {:ok, data} <- pick_top_five_txns(data),
+	 {:ok, data} <- parse_raw_block_info(data, default_pick_up_size()),
 	 {:ok, data} <- format_block(data)
     do
       IO.puts data
@@ -27,13 +25,12 @@ defmodule BlockViewer do
     url |> BlockHttpRequester.fetch
   end
 
-  defp parse_raw_block_info(block) do
-    block |> BlockParser.parse
+  defp parse_raw_block_info(block, fetch_size) do
+    block |> BlockParser.parse(fetch_size)
   end
 
-  defp pick_top_five_txns(block) do
-    %Block{txns: txns} = block
-    {:ok, %{block | txns: Enum.take(txns, 5)}}
+  defp default_pick_up_size do
+    5
   end
 
   defp format_block(block) do
