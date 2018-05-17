@@ -251,7 +251,11 @@ defmodule BlockViewerTest.BlockViewer.Parser.BlockParserTest do
       ]
     }
 
-    assert BlockParser.parse(payload) == block
+    assert BlockParser.parse(payload) == {:ok, block}
+  end
+
+  test "parse a non block data" do
+    assert BlockParser.parse("JSON String") == {:error, "Invalid Block Type"}
   end
 end
 
